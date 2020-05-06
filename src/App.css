@@ -1,5 +1,16 @@
 .App {
   text-align: center;
+  display: grid;
+  grid-template-columns: 16% auto 16%;
+  grid-template-rows: calc(100vh - 10px);
+  margin:4px 0 4px 4px;
+  /* border:solid #3d3e44; */
+  font-size: 1.2rem;
+}
+
+.panel{
+  background-color: #61dafb;
+  margin:0 4px 0 0;
 }
 
 .App-logo {

@@ -1,0 +1,17 @@
+.first-panel{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.first-up{
+  width: 100%;
+  height: 30%;
+  position: relative;
+  border-bottom: 4px solid white;
+}
+
+.first-down{
+  width: 100%;
+  height: 70%;
+  position: relative;
+}

@@ -1,0 +1,17 @@
+.second-panel{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.second-up{
+  width: 100%;
+  height: 60%;
+  position: relative;
+  border-bottom: 4px solid white;
+}
+
+.second-down{
+  width: 100%;
+  height: 40%;
+  position: relative;
+}
