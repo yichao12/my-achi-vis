@@ -1,6 +1,6 @@
 import React from 'react';
 import './firstPanel.css';
-
+import Donut from '../../component/categoryDonut/CategoryDonut'
 
 
 class FirstPanel extends React.Component {
@@ -14,11 +14,21 @@ class FirstPanel extends React.Component {
   render() {
     return (
       <div className="first-panel">
-        <div className="first-up">
+        <div className="first-up single-panel">
+          <div className="panel-header">
             firstUp
+          </div>
+          <div className="panel-container">
+            
+          </div>
         </div>
-        <div className="first-down">
-            firstDown
+        <div className="first-down single-panel">
+            <div className="panel-header">
+              firstDown
+            </div>
+            <div className="panel-container">
+              <Donut></Donut>
+            </div>
         </div>
       </div>
     )
