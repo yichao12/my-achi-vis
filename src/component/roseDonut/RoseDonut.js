@@ -70,7 +70,7 @@ class RoseDonut extends React.Component {
 
     return (
       <div>
-        <Chart height={280} data={data} padding={[15,30,5,5]} forceFit>
+        <Chart height={290} data={data} padding={[15,30,10,5]} forceFit>
           <Coord type="polar" innerRadius={0.5} />
           <Tooltip />
           <Legend
@@ -80,7 +80,7 @@ class RoseDonut extends React.Component {
           <Geom
             type="interval"
             color="year"
-            opacity={0.6}
+            opacity={0.4}
             position="year*population"
             style={{
               lineWidth: 1,
@@ -88,7 +88,8 @@ class RoseDonut extends React.Component {
             }}
           >
             <Label
-              offset={5}
+              content="year*population"
+              // offset={}
               textStyle= {{
                 textAlign: 'center', // 文本对齐方向，可取值为： start middle end
                 fill: '#404040', // 文本的颜色
@@ -96,9 +97,9 @@ class RoseDonut extends React.Component {
                 fontWeight: 'bold', // 文本粗细
                 textBaseline: 'top' // 文本基准线，可取 top middle bottom，默认为middle
               }}
-              autoRotate= {true}
+              autoRotate= {false}
               formatter={(val, item) => {
-                return item.point.item + ": " + val;
+                return val;
               }}
             />
           </Geom>

@@ -1,6 +1,7 @@
 import React from 'react';
 import './secondPanel.css';
 import RoseDonut from '../../component/roseDonut/RoseDonut'
+import SingleTraj from '../../component/singleTraj/SingleTraj'
 
 
 class SecondPanel extends React.Component {
@@ -26,7 +27,7 @@ class SecondPanel extends React.Component {
             <div className="panel-header">
                secondDown
             </div>
-            <div className="panel-container">
+            <div className="panel-container second-down-panel">
                 <div className="traj-left-container">
                   <RoseDonut></RoseDonut>
                 </div>
@@ -35,7 +36,7 @@ class SecondPanel extends React.Component {
                       花朵展示
                   </div>
                   <div className="single-traj-container">
-                      单人行程展示
+                      <SingleTraj/>
                   </div>
                 </div>
             </div>

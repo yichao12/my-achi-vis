@@ -1,6 +1,7 @@
 import React from 'react';
 import './firstPanel.css';
 import Donut from '../../component/categoryDonut/CategoryDonut'
+import DimensionReduce from '../../component/dimension/DimensionReduce'
 
 
 class FirstPanel extends React.Component {
@@ -19,7 +20,7 @@ class FirstPanel extends React.Component {
             firstUp
           </div>
           <div className="panel-container">
-            
+            <DimensionReduce/> 
           </div>
         </div>
         <div className="first-down single-panel">
