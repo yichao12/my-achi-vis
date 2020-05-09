@@ -1,6 +1,7 @@
 import React from 'react';
 import './list.css';
 
+
 class ListItem extends React.Component{
   constructor(props){
     super(props)
@@ -11,39 +12,29 @@ class ListItem extends React.Component{
   render(){
     // console.log("props",this.props)
     let data = this.props.data
+    const {id, time, positions, category} = data
     return(
       <div className="listItem-out">
-        <div className="listItem-out-middle">
-          <p className="listItem-line selectList-scrollbar"> 
-            {data}
-          </p >
-        </div>
-        
-        {/* <div className="listItem-in listFirst">
+        <div className="listItem-in listFirst">
           <div className="textItem">
-            {firstValue}
+            {id}
           </div>
         </div>
         <div className="listItem-in listSecond">
           <div className="textItem">
-            {secondValue}
+            {time}
           </div>
         </div>
         <div className="listItem-in listThird">
           <div className="textItem">
-             {thirdValue}
+             {positions}
           </div>
         </div>
         <div className="listItem-in listFourth">
           <div className="textItem">
-            {fourthValue}
+            {category}
           </div>
         </div>
-        <div className="listItem-in listFifth">
-          <div className="textItem">
-            {fifthValue}
-          </div>
-        </div> */}
       </div>
     )
   }

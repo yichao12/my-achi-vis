@@ -3,6 +3,12 @@
   height: 100%;
   position: relative;
 }
+
+.plan-img-container{
+  width: 90%;
+  height: 90%;
+}
+
 .second-up{
   width: 100%;
   height: 60%;

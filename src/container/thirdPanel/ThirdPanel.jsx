@@ -12,7 +12,7 @@ class ThirdPanel extends React.Component {
   }
 
   render() {
-    let lineChartData = [1,2,3,4,5,6]
+    let lineChartData = [1,2]
     let style={
       height:200,
       width:200

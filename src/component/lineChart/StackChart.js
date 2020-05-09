@@ -15,7 +15,28 @@ import {Geom,
   
 } from "bizcharts";
 
+import './stackChart.css'
+
+const areaColor = ['l (90) 0:rgba(0, 146, 255, 1) 1:rgba(0, 146, 255, 0.1)',
+  'l (90) 0:rgba(0, 146, 255, 1) 1:rgba(0, 146, 255, 0.1)',
+  'l (90) 0:rgba(0, 146, 255, 1) 1:rgba(0, 146, 255, 0.1)', 
+  'l (90) 0:rgba(0, 268, 0, 1) 1:rgba(0, 268, 0, 0.1)']
+
+const lineColor =  ['rgba(0, 146, 255, 1)','rgba(0, 146, 255, 1)','rgba(0, 146, 255, 1)', '#00ff00']
+let containerHeight = 220
+
 class StackChart extends React.Component {
+
+  constructor(props){
+    super(props)
+    this.$container = React.createRef()
+  }
+
+  componentDidMount(){
+    const container = this.$container.current
+    console.log("container",container.clientHeight)
+    containerHeight = container.clientHeight
+  }
   render() {
     const data = [
       {
@@ -166,8 +187,8 @@ class StackChart extends React.Component {
       }
     };
     return (
-      <div>
-        <Chart padding={[20, 20, 70, 55]} height={170} data={data} scale={cols} forceFit>
+      <div className="stackChart-wrapper" ref = {this.$container}>
+        <Chart padding={[20, 20, 70, 55]} height={containerHeight} data={data} scale={cols} forceFit>
           <Axis name="year" />
           <Axis name="value" />
           <Legend offsetY={-15} />
@@ -176,8 +197,20 @@ class StackChart extends React.Component {
               type: "line"
             }}
           />
-          <Geom type="areaStack" position="year*value" opacity={0.2} color="country" />
-          <Geom type="lineStack" position="year*value" opacity={0.3} size={1} color="country" />
+          <Geom 
+            type="areaStack" 
+            position="year*value" 
+            opacity={0.2} 
+            color={['country',areaColor ]}
+            // color="country" 
+          />
+          <Geom 
+            type="lineStack" 
+            position="year*value" 
+            opacity={0.3} 
+            size={1} 
+            color="country" 
+          />
         </Chart>
       </div>
     );
