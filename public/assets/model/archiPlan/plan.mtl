@@ -1,0 +1,21 @@
+#
+## Alias OBJ Material File
+# Exported from SketchUp, (c) 2000-2012 Trimble Navigation Limited
+
+newmtl FrontColor
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.330000 0.330000 0.330000
+
+newmtl Zigzag_Symbol
+Ka 0.000000 0.000000 0.000000
+Kd 0.905882 0.901961 0.898039
+Ks 0.330000 0.330000 0.330000
+map_Kd plan/Zigzag_Symbol.jpg
+
+newmtl Herringbone_2x1
+Ka 0.000000 0.000000 0.000000
+Kd 0.905882 0.901961 0.898039
+Ks 0.330000 0.330000 0.330000
+map_Kd plan/Herringbone_2x1.jpg
+

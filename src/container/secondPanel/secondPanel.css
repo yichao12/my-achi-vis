@@ -4,6 +4,12 @@
   position: relative;
 }
 
+.plan-three-container{
+  width: 90%;
+  height: 90%;
+  margin: 0 auto;
+}
+
 .plan-img-container{
   width: 90%;
   height: 90%;

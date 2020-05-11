@@ -3,6 +3,7 @@ import './secondPanel.css';
 import RoseDonut from '../../component/roseDonut/RoseDonut'
 import SingleTraj from '../../component/singleTraj/SingleTraj'
 import plan from '../../assets/jpg/plan.jpg'
+import PlanThree from '../../component/planThree/PlanThree'
 
 
 class SecondPanel extends React.Component {
@@ -21,7 +22,10 @@ class SecondPanel extends React.Component {
               secondUp
             </div>
             <div className="panel-container">
-              <img className="plan-img-container" src={plan}></img>
+              <div className="plan-three-container">
+                <PlanThree></PlanThree>
+              </div>
+              {/* <img className="plan-img-container" src={plan}></img> */}
             </div>
         </div>
         <div className="second-down single-panel">
