@@ -4,19 +4,18 @@ import { makeData,
 } from './util'
 
 import * as THREE from 'three'
-
-// import {TrackballControls} from 'three-TrackballControls'
 import {TrackballControls} from 'three/examples/jsm/controls/TrackballControls.js'
-// import {OBJLoader} from 'three-OBJLoader'
-// import {MTLLoader} from 'three-MTLLoader'
-import {OBJLoader} from 'three/examples/jsm/loaders/OBJLoader.js'
-import {MTLLoader} from 'three/examples/jsm/loaders/MTLLoader.js'
+import {OBJLoader} from './loaders/OBJLoader.js'
+import {MTLLoader} from './loaders/MTLLoader.js'
+
 
 import planObj from '../../assets/model/archiPlan/plan.obj'
 import planMtl from '../../assets/model/archiPlan/plan.mtl'
 // import '../../assets/model/archiPlan/plan'
 import './planThree.css'
 
+const textureResolve = file =>
+        require('../../assets/model/archiPlan/' + file); 
 
 
 class PlanThree extends React.Component{
@@ -87,11 +86,10 @@ class PlanThree extends React.Component{
 
     let _this = this
     console.log("_this.publicPath",_this.publicPath)
-		new MTLLoader(manager)
-			// .setPath('../../assets/model/archiPlan/')
+		new MTLLoader(THREE,textureResolve,manager)
 			.load( planMtl, function ( materials ) {
 				materials.preload();
-				new OBJLoader( manager )
+				new OBJLoader( THREE )
 					.setMaterials( materials )
 					// .setPath( '../../assets/model/archiPlan/' )
 					.load( planObj, function ( object ) {
