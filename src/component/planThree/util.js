@@ -26,3 +26,33 @@ export function nextPosition(pos,speed){
   return newPos
 
 }
+
+export function makeData(n,m){
+    let heatMapData = [], motionData = []
+    let i = 0
+    // 热力图数据
+    while(i<n){
+      heatMapData.push({
+        id:Math.floor(Math.random()*5000),
+        x:Math.floor(Math.random()*30),
+        z:Math.floor(Math.random()*16),
+        value:Math.floor(Math.random()*100)
+      })
+      i++
+    }
+
+    i = 0
+    // 运动数据
+    while(i<m){
+      motionData.push({
+        id:Math.floor(Math.random()*5000),
+        x:Math.floor(Math.random()*30),
+        z:Math.floor(Math.random()*16),
+        tx:Math.floor(Math.random()*30),
+        tz:Math.floor(Math.random()*16),
+      })
+      i++
+    }
+    
+    return {heatMapData,motionData}
+  }

@@ -15,13 +15,61 @@ import planMtl from '../../assets/model/archiPlan/plan.mtl'
 import './planThree.css'
 
 const textureResolve = file =>
-        require('../../assets/model/archiPlan/' + file); 
+        require('../../assets/model/archiPlan/' + file);
+// 场景scene,热力图柱状体数组，运动点几何数组
+// 删除某个物件，借助作业四的一些功能
+// 高亮 
+let scene
+let clinderObjects = []
+let motionObjects = []
 
 
 class PlanThree extends React.Component{
   constructor(props){
     super(props)
     this.$container = React.createRef()
+  }
+
+  // 代替原来的componentWillReceiveProps生命周期
+  // 静态方法，纯函数
+  static getDerivedStateFromProps(nextProps,prevState){
+    // if(nextProps.tab!==prevState.tab){
+    //   return {
+    //     tab:nextProps.tab
+    //   }
+    // }
+    // return null
+  }
+
+  // 会在最终确定的render函数执行之前执行
+  getSnapshotBeforeUpdate(prevProps,prevState){
+    // 可以运用的比较逻辑
+    // if(prevProps!=this.props){
+    //   return true
+    // }
+    // return null
+  }
+  componentDidUpdate(){
+    // 增删物件，以及改变值.即：改变控制数量和动画的数据在这里面进行
+    let data = makeData(100,50)
+    data.heatMapData.forEach((v,i)=>{
+
+    })
+    data.motionData.forEach((v,i)=>{
+      // 添加运动的粒子
+      let sphereGeom= new THREE.SphereGeometry(2, 8, 8);
+      let sphereMaterial = new THREE.MeshLambertMaterial({
+          color: 0x0000ff,
+          transparent:true,
+          opacity:0.5
+      });
+      let sphere = new THREE.Mesh(sphereGeom, sphereMaterial);
+      sphere.position.set(v.x,5,-1*v.z);
+      sphere.castShadow = true;
+      console.log("sphere",sphere)
+      scene.add(sphere);
+      motionObjects.push(sphere)
+    })
   }
 
   componentDidMount(){
@@ -33,7 +81,7 @@ class PlanThree extends React.Component{
   }
 
   init(){
-    var scene = new THREE.Scene();
+    scene = new THREE.Scene();
     scene.background = new THREE.Color( 0xbfd1e5 );
     var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 500000);
     camera.position.x = 200;
@@ -51,8 +99,6 @@ class PlanThree extends React.Component{
     let containerDom = this.$container.current
     containerDom.appendChild(webGLRenderer.domElement);
 
-    
-    
     // 控制旋转
     var trackballControls = new TrackballControls(camera,webGLRenderer.domElement);
     trackballControls.rotateSpeed = 1.0;
@@ -112,7 +158,6 @@ class PlanThree extends React.Component{
     cube.castShadow = true;
     console.log("cube.position",Object.values(cube.position),cube.position.x,cube.position.y,cube.position.z)
     cube.geometry.parameters.width = 800
-    
     scene.add(cube);
     // 改变位置
     cube.scale.set(1, 5, 1);
