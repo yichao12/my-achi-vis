@@ -72,8 +72,51 @@ class PlanThree extends React.Component{
     })
   }
 
+  addData(){
+    // 增删物件，以及改变值.即：改变控制数量和动画的数据在这里面进行
+    let data = makeData(100,50)
+    data.heatMapData.forEach((v,i)=>{
+      // create a cube
+      var cubeGeometry = new THREE.BoxGeometry(8, v.value, 8);
+      var cubeMaterial = new THREE.MeshLambertMaterial({
+          color: 0xff0000,
+          transparent:true,
+          opacity:0.5
+      });
+
+      var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+      cube.castShadow = true;
+      // console.log("cube.position",Object.values(cube.position),cube.position.x,cube.position.y,cube.position.z)
+      cube.geometry.parameters.width = 800
+      scene.add(cube);
+      clinderObjects.push(cube)
+      // 改变位置
+      cube.scale.set(1, 1, 1);
+      // 改变大小
+      cube.position.set(6.5+v.x*8, 2.5+v.value/2, -1*(6.5+v.z*8))
+      // 改变材质的颜色，用这个接口
+      cubeMaterial.color = new THREE.Color(0xaaaaaa)
+    })
+    data.motionData.forEach((v,i)=>{
+      // 添加运动的粒子
+      let sphereGeom= new THREE.SphereGeometry(2, 8, 8);
+      let sphereMaterial = new THREE.MeshLambertMaterial({
+          color: 0x0000ff,
+          transparent:true,
+          opacity:0.5
+      });
+      let sphere = new THREE.Mesh(sphereGeom, sphereMaterial);
+      sphere.position.set(v.x*8,5,-1*v.z*8);
+      sphere.castShadow = true;
+      // console.log("sphere",sphere)
+      scene.add(sphere);
+      motionObjects.push(sphere)
+    })
+  }
+
   componentDidMount(){
     this.init()
+    this.addData()
   }
 
   componentWillUnmount(){
