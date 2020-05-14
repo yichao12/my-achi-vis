@@ -8,14 +8,19 @@ import {TrackballControls} from 'three/examples/jsm/controls/TrackballControls.j
 import {OBJLoader} from './loaders/OBJLoader.js'
 import {MTLLoader} from './loaders/MTLLoader.js'
 
-
 import planObj from '../../assets/model/archiPlan/plan.obj'
 import planMtl from '../../assets/model/archiPlan/plan.mtl'
 // import '../../assets/model/archiPlan/plan'
 import './planThree.css'
 
+import {connect} from 'react-redux'
+import {initPersonInfo } from '../../redux/personInfo.redux'
+
+
+
 const textureResolve = file =>
         require('../../assets/model/archiPlan/' + file);
+
 // 场景scene,热力图柱状体数组，运动点几何数组
 // 删除某个物件，借助作业四的一些功能
 // 高亮 
@@ -66,7 +71,7 @@ class PlanThree extends React.Component{
       let sphere = new THREE.Mesh(sphereGeom, sphereMaterial);
       sphere.position.set(v.x,5,-1*v.z);
       sphere.castShadow = true;
-      console.log("sphere",sphere)
+      // console.log("sphere",sphere)
       scene.add(sphere);
       motionObjects.push(sphere)
     })
@@ -258,5 +263,13 @@ class PlanThree extends React.Component{
   }
 }
 
-export default PlanThree
+const mapStateToProps = state=>({
+  personInfo:state.personInfo
+})
+
+const mapDispatchToProps = {
+  initPersonInfo,
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(PlanThree)
 

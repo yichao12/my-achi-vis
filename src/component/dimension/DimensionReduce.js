@@ -1,6 +1,10 @@
 import React from 'react'
-import { dimensionScale, makeData} from './util'
+import { dimensionScale, extractData} from './util'
 import './dimensionReduce.css'
+
+import {connect} from 'react-redux'
+import {initPersonInfo } from '../../redux/personInfo.redux'
+
 
 const WIDTH = 340
 const HEIGHT = 300
@@ -10,11 +14,17 @@ class DimensionReduce extends React.Component{
   constructor(props){
     super(props)
   }
+
+  componentDidMount(){
+    this.props.initPersonInfo()
+  }
   render() {
-    let data = makeData(150)
+    console.log("this.props.personInfo",this.props.personInfo)
+    let data = extractData(this.props.personInfo)
+    // let data = this.props.personInfo
     const width = WIDTH - margin.left - margin.right
     const height = HEIGHT - margin.top - margin.bottom
-    const{xScale,yScale,tScale} = dimensionScale(data,width,height)
+    const{xScale,yScale,tScale,cScale} = dimensionScale(data,width,height)
     return(
       <svg  
         width="100%"
@@ -33,7 +43,7 @@ class DimensionReduce extends React.Component{
                 cx={xScale(v.x)}
                 cy={yScale(v.y)}
                 r={tScale(v.time)}
-                fill={"red"}
+                fill={cScale[v.category]}
                 opacity={0.5}
                 stroke={"black"}
                 discription={`id:${v.id},time:${v.time}`}
@@ -49,5 +59,13 @@ class DimensionReduce extends React.Component{
   }
 }
 
-export default DimensionReduce
+const mapStateToProps = state=>({
+  personInfo:state.personInfo
+})
+
+const mapDispatchToProps = {
+  initPersonInfo
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(DimensionReduce)
 

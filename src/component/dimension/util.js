@@ -23,21 +23,21 @@ export function dimensionScale(data,width,height){
   .domain([minT,maxT])
   .range([5,10])
 
-  return {xScale,yScale,tScale}
+  let cScale = d3.schemeCategory10
+  console.log(cScale)
+
+  return {xScale,yScale,tScale,cScale}
   
 }
 
-export function makeData(n){
-  let data = []
-  let i = 0
-  while(i<n){
-    data.push({
-      id:Math.floor(Math.random()*5000),
-      x:Math.floor(Math.random()*100),
-      y:Math.floor(Math.random()*100),
-      time:Math.floor(Math.random()*10),
-    })
-    i++
-  }
-  return data
+export function extractData(originData){
+  return originData.map(v=>{
+    return {
+      id:v.personId,
+      x:v.dimX,
+      y:v.dimY,
+      time:v.totalTime,
+      category:v.category
+    }
+  })
 }
