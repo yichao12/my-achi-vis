@@ -14,7 +14,17 @@ class CategoryList extends React.Component{
   render(){
     // let data = this.props.selectListData
     // 对selectList数据进行去重
-    let data = makeData(500)
+    if(this.props.personInfo.length===0){
+      return null
+    }
+    let data = this.props.personInfo.map(v=>{
+      return {
+        id:v.personId,
+        time:v.totalTime,
+        positions:v.roomNum,
+        category:v.category,
+      }
+    }) 
     const titleData={
       id:"Id",
       time:"TotalTime/mins",
@@ -45,5 +55,8 @@ class CategoryList extends React.Component{
   }
 }
 
+const mapStateToProps = state=>({
+  personInfo:state.personInfo
+})
 
-export default CategoryList;
+export default connect(mapStateToProps)(CategoryList);

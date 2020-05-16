@@ -90,7 +90,7 @@ class PlanThree extends React.Component{
   }
   
   componentDidUpdate(){
-    console.log("this.props.personInfo",this.props.personInfo)
+    // console.log("this.props.personInfo",this.props.personInfo)
     this.props.personInfo.forEach((v,i)=>{
       // 添加运动的粒子
       let sphereGeom= new THREE.SphereGeometry(2, 8, 8);
@@ -100,7 +100,7 @@ class PlanThree extends React.Component{
           opacity:0.5
       });
       let sphere = new THREE.Mesh(sphereGeom, sphereMaterial);
-      console.log("yyyy",Object.assign(v))
+      // console.log("yyyy",Object.assign(v))
       let level = v.trajs[0].y>1?1:0
       sphere.position.set((v.trajs[0].x+32*level)*8,5,-1*v.trajs[0].z*8);
       sphere.castShadow = true;

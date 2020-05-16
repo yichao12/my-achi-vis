@@ -3,7 +3,8 @@ function makeData1(n){
   let i = 0
   while(i<n){
     let trajs = []
-    let j = Math.ceil(Math.random()*50)
+    let j = Math.ceil(Math.random()*15)+2
+    let singel
     while(j>0){
       let tempTraj = {
         time:Math.floor(Math.random()*5000),
