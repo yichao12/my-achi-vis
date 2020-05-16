@@ -1,6 +1,7 @@
 import React from 'react'
 import { singleTrajScale, makeData} from './util'
 import './singleTraj.css'
+import {connect} from 'react-redux'
 
 const WIDTH = 860
 const HEIGHT = 115
@@ -11,12 +12,16 @@ class SingleTraj extends React.Component {
     super(props)
   }
   render() {
-    let data = makeData(10)
+    if(this.props.personInfo.length==0){
+      return null
+    }
+    let data = makeData(this.props.personInfo[0])
+
     const width = WIDTH - margin.left - margin.right
     const height = HEIGHT - margin.top - margin.bottom
     const{xScale,yScale,transWidth} = singleTrajScale(data,width,height)
     return(
-      <svg  
+      data&&<svg  
         width="100%"
         height="100%" 
         viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
@@ -133,5 +138,9 @@ class SingleTraj extends React.Component {
   }
 }
 
-export default SingleTraj
+const mapStateToProps = state=>({
+  personInfo:state.personInfo
+})
+
+export default connect(mapStateToProps)(SingleTraj)
 

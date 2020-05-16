@@ -54,28 +54,7 @@ class PlanThree extends React.Component{
     // }
     // return null
   }
-  componentDidUpdate(){
-    // 增删物件，以及改变值.即：改变控制数量和动画的数据在这里面进行
-    let data = makeData(100,50)
-    data.heatMapData.forEach((v,i)=>{
 
-    })
-    data.motionData.forEach((v,i)=>{
-      // 添加运动的粒子
-      let sphereGeom= new THREE.SphereGeometry(2, 8, 8);
-      let sphereMaterial = new THREE.MeshLambertMaterial({
-          color: 0x0000ff,
-          transparent:true,
-          opacity:0.5
-      });
-      let sphere = new THREE.Mesh(sphereGeom, sphereMaterial);
-      sphere.position.set(v.x,5,-1*v.z);
-      sphere.castShadow = true;
-      // console.log("sphere",sphere)
-      scene.add(sphere);
-      motionObjects.push(sphere)
-    })
-  }
 
   addData(){
     // 增删物件，以及改变值.即：改变控制数量和动画的数据在这里面进行
@@ -102,7 +81,17 @@ class PlanThree extends React.Component{
       // 改变材质的颜色，用这个接口
       cubeMaterial.color = new THREE.Color(0xaaaaaa)
     })
-    data.motionData.forEach((v,i)=>{
+    
+  }
+
+  componentDidMount(){
+    this.init()
+    this.addData()
+  }
+  
+  componentDidUpdate(){
+    console.log("this.props.personInfo",this.props.personInfo)
+    this.props.personInfo.forEach((v,i)=>{
       // 添加运动的粒子
       let sphereGeom= new THREE.SphereGeometry(2, 8, 8);
       let sphereMaterial = new THREE.MeshLambertMaterial({
@@ -111,17 +100,14 @@ class PlanThree extends React.Component{
           opacity:0.5
       });
       let sphere = new THREE.Mesh(sphereGeom, sphereMaterial);
-      sphere.position.set(v.x*8,5,-1*v.z*8);
+      console.log("yyyy",Object.assign(v))
+      let level = v.trajs[0].y>1?1:0
+      sphere.position.set((v.trajs[0].x+32*level)*8,5,-1*v.trajs[0].z*8);
       sphere.castShadow = true;
       // console.log("sphere",sphere)
       scene.add(sphere);
       motionObjects.push(sphere)
     })
-  }
-
-  componentDidMount(){
-    this.init()
-    this.addData()
   }
 
   componentWillUnmount(){

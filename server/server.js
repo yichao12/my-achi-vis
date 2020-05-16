@@ -34,7 +34,7 @@ app.get('/roomInfo',function(req,res){
 })
 
 app.get('/personInfo',function(req,res){
-  res.send({data:makeData1(30),code:0})
+  res.send({data:makeData1(50),code:0})
 })
 
 // 监听端口是9093

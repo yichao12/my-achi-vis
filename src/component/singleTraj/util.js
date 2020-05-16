@@ -21,18 +21,32 @@ export function singleTrajScale(data,width,height){
   return {xScale,yScale,transWidth}
 }
 
-export function makeData(n){
+export function makeData(pData){
   let data = []
-  let i = 0
-  while(i<n){
-    data.push({
-      index:i,
-      id:Math.floor(Math.random()*20),
-      roomName:`room_${Math.floor(Math.random()*20)}`,
-      startTime:Math.floor(Math.random()*100),
-      last:Math.floor(Math.random()*150),
-    })
+  let i = 1
+  let trajs = pData.trajs
+  trajs.sort((a,b)=>a.time-b.time)
+  const len = trajs.length
+  let index = 0
+  let lastRoomId = trajs[0].roomId
+  let startTime = trajs[0].time
+  let lastTime = 0
+  while(i<len){
+    lastTime+=trajs[i].time-trajs[i-1].time
+    if(trajs[i].roomId!==lastRoomId){
+      data.push({
+        index:index++,
+        id:lastRoomId,
+        roomName:trajs[i-1].roomName,
+        startTime:startTime,
+        last:lastTime,
+      })
+      lastRoomId = trajs[i].roomId
+      startTime = trajs[i].time
+      lastTime = 0
+    }
     i++
   }
   return data
 }
+
