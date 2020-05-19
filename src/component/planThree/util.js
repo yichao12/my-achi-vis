@@ -31,7 +31,7 @@ export function makeData(n,m){
     let heatMapData = [], motionData = []
     let i = 0
     // 热力图数据
-    while(i<n){
+    while(i<n){ 
       heatMapData.push({
         id:Math.floor(Math.random()*5000),
         x:Math.floor(Math.random()*30),

@@ -1,3 +1,61 @@
+// 数据流入，先处理传感器数据，为其添加该传感器所在房间的编号
+// 先将轨迹数据按人为第一标尺，时间为第二标尺排序
+// 给轨迹数据，添加roomId
+// 依据轨迹数据，统计出人物信息，和房间信息
+// 房间数据是人数随时间变化的数据，时间单位是分钟每天共：24*60min
+function addSensor2RoomId(sData, trajData){
+  let sensor2Room = new Map
+
+  sData.forEach((v,i)=>{
+    v.roomId = position2RoomId(v.x, v.floor, v.y)
+    v.roomName = roomId2Name[v.roomId]
+    sensor2Room.set(v.sid,v.roomId)
+  })
+
+  trajData.sort(trajCmp)
+
+  let personData = [],roomData = []
+  
+  let person2Index = {}
+  let pIndex = 0
+
+  trajData.forEach((v,i)=>{
+    if(person2Index[v.id]==undefined){
+      person2Index[v.id] = pIndex
+      personData[pIndex] = {
+        personId:v.id,
+        startTime:v.time,
+        endTime:v.time,
+        roomNum:0,
+        dimX:Math.floor(Math.random()*100),
+        dimY:Math.floor(Math.random()*100),
+        category:Math.floor(Math.random()*10),
+        trajs:[]
+      }
+      pIndex++
+    }
+    
+
+  })
+
+}
+
+function trajCmp(a,b){
+  if(a.id!==b.id){
+    return a.id-b.id
+  }else{
+    return a.time-b.time
+  }
+}
+
+
+
+
+function makeRoomData(){
+
+}
+
+
 function makeData1(n){
   let data = []
   let i = 0

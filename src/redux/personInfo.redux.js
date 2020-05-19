@@ -14,12 +14,9 @@ export function personInfo(state = initState,action){
 }
 
 export function initPersonInfo(){
-  console.log("调用initPersonInfo")
   return (dispatch) => {
-    console.log("res---personInfo--过了dispatch")
     axios.get('/personInfo')
       .then(res=>{
-        console.log("res,personInfo",res)
         if(res.status===200&&res.data.code===0){
             dispatch(personInfoInit(res.data.data))
         }
