@@ -22,6 +22,7 @@ class DimensionReduce extends React.Component{
   render() {
     console.log("this.props.personInfo",this.props.personInfo)
     let data = extractData(this.props.personInfo)
+    console.log("d--data",data)
     // let data = this.props.personInfo
     const width = WIDTH - margin.left - margin.right
     const height = HEIGHT - margin.top - margin.bottom

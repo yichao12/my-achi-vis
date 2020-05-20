@@ -51,11 +51,14 @@ function handleDayData(trajData){
   // 房间中的人数随时间变化的数据，二维数组
   // 第一维是房间编号，第二维是时间，以分钟为单位，值是人数
   let roomInfo = new Array(21)
-  roomInfo.forEach((v,i)=>{
-    v = new Array(24*60).fill(0)
-  })
+  for(let i=0;i<=21;i++){
+    roomInfo[i] = new Array(24*60).fill(0)
+  }
+  // roomInfo.forEach((v,i)=>{
+  //   v = new Array(24*60).fill(0)
+  // })
 
-  console.log("roomInfo",roomInfo)
+  // console.log("roomInfo",roomInfo)
   
   let person2Index = {}
   let pIndex = 0
@@ -64,6 +67,7 @@ function handleDayData(trajData){
   let lastTime = -1
 
   trajData.forEach((v,i)=>{
+    v.time = Number(v.time)
     if(person2Index[v.id]==undefined){
       person2Index[v.id] = pIndex
       personInfo[pIndex] = {

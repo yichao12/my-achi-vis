@@ -42,21 +42,23 @@ async function readCSV(path,firstRow = true){
     }else{
       data.push(line)
     }
-    return data
   }
+  return data
 }
 
-app.get('/initDayInfo',function(req,res){
+app.get('/initDayInfo',async function(req,res){
   // 获取参数
-  const sData = readCSV(SENSOR_POSITION,true)
-  console.log("sData",sData)
+  console.log("begin--time",Date.now())
+  const  sData = await readCSV(SENSOR_POSITION,true)
+  // console.log("sData",sData)
   handleSensorData(sData)
-  const trajsData = readCSV(DAY_PATH[1],true)
-  console.log("trajsData",trajsData)
+  const trajsData = await readCSV(DAY_PATH[1],true)
+  // console.log("trajsData",trajsData)
   res.send({
     data:handleDayData(trajsData),
     code:0
   })
+  console.log("end--time",Date.now())
 })
 
 app.get('/dayInfo',function(req,res){

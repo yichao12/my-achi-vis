@@ -21,7 +21,7 @@ export function dimensionScale(data,width,height){
 
   let tScale = d3.scaleLinear()
   .domain([minT,maxT])
-  .range([5,10])
+  .range([1,3])
 
   let cScale = d3.schemeCategory10
   console.log(cScale)
@@ -36,7 +36,7 @@ export function extractData(originData){
       id:v.personId,
       x:v.dimX,
       y:v.dimY,
-      time:v.totalTime,
+      time:v.endTime-v.startTime,
       category:v.category
     }
   })
