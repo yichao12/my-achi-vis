@@ -14,7 +14,7 @@ export function roomInfo(state = initState,action){
 }
 
 export function initRoomInfo(){
-  return dispatch=>{
+  return dispatch=>{ 
     axios.get('/roomInfo')
       .then(res=>{
         if(res.status===200&&res.data.code===0){

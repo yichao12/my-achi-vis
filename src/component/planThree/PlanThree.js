@@ -32,7 +32,7 @@ let startTime = 7*3600
 let endTime = 21*3600
 let nowTime = 7*3600
 
-let personsTrajIndex
+let person2TrajIndex,person2ObjectIndex
 
 
 class PlanThree extends React.Component{
@@ -91,7 +91,52 @@ class PlanThree extends React.Component{
   }
 
   handleMotionSphere(now){
-
+    this.props.personInfo.forEach((v,i)=>{
+      let trajIndex = person2TrajIndex[i]
+      if(trajIndex===-1&&v.trajs[0].time<=nowTime){
+        trajIndex = 0
+        while(trajIndex+1<v.trajs.length&&v.trajs[trajIndex+1].time<=nowTime){
+          trajIndex++
+        }
+        // 添加运动粒子
+        let sphereGeom= new THREE.SphereGeometry(2, 8, 8);
+        let sphereMaterial = new THREE.MeshLambertMaterial({
+            color: 0x0000ff,
+            transparent:true,
+            opacity:0.5
+        });
+        let sphere = new THREE.Mesh(sphereGeom, sphereMaterial);
+        // console.log("yyyy",Object.assign(v))
+        let level = v.trajs[0].y>1?1:0
+        sphere.position.set((v.trajs[0].x+32*level)*8,5,-1*v.trajs[0].z*8);
+        sphere.castShadow = true;
+        scene.add(sphere);
+        motionObjects.push(sphere)
+        person2TrajIndex[i] = trajIndex // 标志粒子处在轨迹的开头
+        person2ObjectIndex[i] = motionObjects.length-1
+      }else if(trajIndex>-1&&trajIndex+1<v.trajs.length&&v.trajs[trajIndex+1].time<=nowTime){
+        // 改变运动粒子的位置
+        trajIndex++
+        while(trajIndex+1<v.trajs.length&&v.trajs[trajIndex+1].time<=nowTime){
+          trajIndex++
+        }
+        let obj = motionObjects[person2ObjectIndex[i]]
+        person2TrajIndex[i] = trajIndex
+        let level = v.trajs[trajIndex].y>1?1:0
+        obj.postion.set((v.trajs[trajIndex].x+32*level)*8,5,-1*v.trajs[trajIndex].z*8)
+      }else if(trajIndex+1===v.trajs.length&&v.trajs[trajIndex+1].time<nowTime){
+        // 移除运动粒子
+        let obj = motionObjects[person2ObjectIndex[i]]
+        let objIndex = person2ObjectIndex[i]
+        for(let j =0;j<person2ObjectIndex.length;j++){
+          if(person2ObjectIndex[j]>objIndex){
+            person2ObjectIndex[j]--
+          }
+        }
+        scene.remove(obj)
+        motionObjects.splice(objIndex,1)
+      }
+    })
   }
 
   componentDidMount(){
@@ -102,7 +147,8 @@ class PlanThree extends React.Component{
   
   componentDidUpdate(){
     // console.log("this.props.personInfo",this.props.personInfo)
-    personsTrajIndex = new Array(this.props.personInfo.length).fill(-1)
+    person2TrajIndex = new Array(this.props.personInfo.length).fill(-1)
+    person2ObjectIndex = new Array(this.props.personInfo.length).fill(-1)
     console.log("componentDidUpdate***-----")
     this.props.personInfo.forEach((v,i)=>{
       // 添加运动的粒子
@@ -270,7 +316,7 @@ class PlanThree extends React.Component{
 }
 
 const mapStateToProps = state=>({
-  personInfo:state.personInfo
+  personInfo:state.dayInfo.personInfo
 })
 
 const mapDispatchToProps = {

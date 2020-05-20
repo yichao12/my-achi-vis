@@ -4,7 +4,7 @@ import './dimensionReduce.css'
 
 import {connect} from 'react-redux'
 import {initPersonInfo } from '../../redux/personInfo.redux'
-
+import {initDayInfo,queryDayInfo} from '../../redux/dayInfo.redux'
 
 const WIDTH = 340
 const HEIGHT = 300
@@ -16,7 +16,8 @@ class DimensionReduce extends React.Component{
   }
 
   componentDidMount(){
-    this.props.initPersonInfo()
+    this.props.initDayInfo()
+    
   }
   render() {
     console.log("this.props.personInfo",this.props.personInfo)
@@ -59,12 +60,16 @@ class DimensionReduce extends React.Component{
   }
 }
 
-const mapStateToProps = state=>({
-  personInfo:state.personInfo
-})
+const mapStateToProps = state=>{
+  console.log("state.dayInfo",state.dayInfo)
+  return {
+    personInfo:state.dayInfo.personInfo
+  }
+}
+  
 
 const mapDispatchToProps = {
-  initPersonInfo
+  initDayInfo
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(DimensionReduce)
