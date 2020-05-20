@@ -28,6 +28,12 @@ let scene
 let clinderObjects = []
 let motionObjects = []
 
+let startTime = 7*3600
+let endTime = 21*3600
+let nowTime = 7*3600
+
+let personsTrajIndex
+
 
 class PlanThree extends React.Component{
   constructor(props){
@@ -37,23 +43,23 @@ class PlanThree extends React.Component{
 
   // 代替原来的componentWillReceiveProps生命周期
   // 静态方法，纯函数
-  static getDerivedStateFromProps(nextProps,prevState){
+  // static getDerivedStateFromProps(nextProps,prevState){
     // if(nextProps.tab!==prevState.tab){
     //   return {
     //     tab:nextProps.tab
     //   }
     // }
     // return null
-  }
+  // }
 
   // 会在最终确定的render函数执行之前执行
-  getSnapshotBeforeUpdate(prevProps,prevState){
+  // getSnapshotBeforeUpdate(prevProps,prevState){
     // 可以运用的比较逻辑
     // if(prevProps!=this.props){
     //   return true
     // }
     // return null
-  }
+  // }
 
 
   addData(){
@@ -84,13 +90,20 @@ class PlanThree extends React.Component{
     
   }
 
+  handleMotionSphere(now){
+
+  }
+
   componentDidMount(){
+    
     this.init()
     this.addData()
   }
   
   componentDidUpdate(){
     // console.log("this.props.personInfo",this.props.personInfo)
+    personsTrajIndex = new Array(this.props.personInfo.length).fill(-1)
+    console.log("componentDidUpdate***-----")
     this.props.personInfo.forEach((v,i)=>{
       // 添加运动的粒子
       let sphereGeom= new THREE.SphereGeometry(2, 8, 8);
@@ -104,7 +117,6 @@ class PlanThree extends React.Component{
       let level = v.trajs[0].y>1?1:0
       sphere.position.set((v.trajs[0].x+32*level)*8,5,-1*v.trajs[0].z*8);
       sphere.castShadow = true;
-      // console.log("sphere",sphere)
       scene.add(sphere);
       motionObjects.push(sphere)
     })
@@ -213,8 +225,16 @@ class PlanThree extends React.Component{
     scene.add(sphere);
 
     let sphereSpeed = 1
+    let timeSpeed = 17
 
     function render() {
+
+      // 更新当下时间戳
+      nowTime += timeSpeed
+      nowTime = nowTime>endTime ? startTime: nowTime
+
+      // 判断其是不是需要添加粒子，或者删除粒子，及判断是否需要更改粒子的位置
+
         
       // 粒子运动
       let newPos = nextPosition(Object.values(sphere.position),sphereSpeed)
