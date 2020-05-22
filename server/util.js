@@ -70,16 +70,18 @@ function handleDayData(trajData){
     v.time = Number(v.time)
     if(person2Index[v.id]==undefined){
       person2Index[v.id] = pIndex
+      const rs = new Set()
       personInfo[pIndex] = {
         personId:v.id,
         startTime:v.time,
         endTime:v.time,
-        roomSet:new Set,
+        roomSet:rs,
         dimX:Math.floor(Math.random()*100),
         dimY:Math.floor(Math.random()*100),
         category:Math.floor(Math.random()*10),
         trajs:[]
       }
+      console.log(personInfo[pIndex].roomSet)
       pIndex++
     }
     let tempIndex = person2Index[v.id]
@@ -95,7 +97,7 @@ function handleDayData(trajData){
     let trajNow = Math.floor(v.time/60)
 
     personInfo[tempIndex].roomSet.add(roomId)
-
+    console.log(personInfo[tempIndex].roomSet)
     if(v.id!==lastPersonId){
       // 下一个人的轨迹
       roomInfo[roomId][trajNow]++
@@ -117,6 +119,9 @@ function handleDayData(trajData){
       }
       lastTime = trajNow
     }
+  })
+  personInfo.forEach(v=>{
+    v.roomNum = v.roomSet.size
   })
   return {personInfo,roomInfo}
 }

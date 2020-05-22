@@ -22,7 +22,7 @@ export function initDayInfo(){
       .then(res=>{
         if(res.status===200&&res.data.code===0){
           console.log("res.data.data",res.data.data)
-            dispatch(changeDayInfo(res.data.data))
+            dispatch(changeDayInfo(JSON.parse(res.data.data)))
         }
       })
   }

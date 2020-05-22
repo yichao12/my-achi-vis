@@ -34,6 +34,9 @@ async function readCSV(path,firstRow = true){
       colNames = values
       continue
     }
+    if(lineIndex>1000){
+      break
+    }
     if(colNames){
       data.push(colNames.reduce((obj,v,vIndex)=>{
         obj[v] = values[vIndex]
@@ -55,7 +58,7 @@ app.get('/initDayInfo',async function(req,res){
   const trajsData = await readCSV(DAY_PATH[1],true)
   // console.log("trajsData",trajsData)
   res.send({
-    data:handleDayData(trajsData),
+    data:JSON.stringify(handleDayData(trajsData)),
     code:0
   })
   console.log("end--time",Date.now())

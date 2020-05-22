@@ -20,11 +20,12 @@ class CategoryList extends React.Component{
     let data = this.props.personInfo.map(v=>{
       return {
         id:v.personId,
-        time:v.totalTime,
+        time:Math.floor((v.endTime-v.startTime)/60),
         positions:v.roomNum,
         category:v.category,
       }
     }) 
+    console.log("data***",data)
     const titleData={
       id:"Id",
       time:"TotalTime/mins",
@@ -56,7 +57,7 @@ class CategoryList extends React.Component{
 }
 
 const mapStateToProps = state=>({
-  personInfo:state.personInfo
+  personInfo:state.dayInfo.personInfo
 })
 
 export default connect(mapStateToProps)(CategoryList);
