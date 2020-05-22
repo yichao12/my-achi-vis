@@ -85,10 +85,12 @@ function handleDayData(trajData){
       pIndex++
     }
     let tempIndex = person2Index[v.id]
+    let tempRoomId = sensor2Room.get(v.sid)
     personInfo[tempIndex].trajs.push({
       sId:v.sid,
       time:v.time,
-      room:sensor2Room.get(v.sid),
+      roomId:tempRoomId,
+      roomName:roomId2Name[tempRoomId],
       position:sensor2Position.get(v.sid)
     })
     personInfo[tempIndex].endTime = v.time

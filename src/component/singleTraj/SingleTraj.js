@@ -16,7 +16,7 @@ class SingleTraj extends React.Component {
       return null
     }
     let data = makeData(this.props.personInfo[0])
-
+    console.log("singleTraj",data)
     const width = WIDTH - margin.left - margin.right
     const height = HEIGHT - margin.top - margin.bottom
     const{xScale,yScale,transWidth} = singleTrajScale(data,width,height)
@@ -139,7 +139,7 @@ class SingleTraj extends React.Component {
 }
 
 const mapStateToProps = state=>({
-  personInfo:state.personInfo
+  personInfo:state.dayInfo.personInfo
 })
 
 export default connect(mapStateToProps)(SingleTraj)
